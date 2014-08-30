@@ -37,7 +37,12 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QDesktopWidget>
+#include <QtGlobal>
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+#include <QtConcurrent/QtConcurrent>
+#else
 #include <QtConcurrentRun>
+#endif
 #include <QFuture>
 
 #include "Bootload/DeviceSqlLoader.h"

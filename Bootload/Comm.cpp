@@ -676,7 +676,7 @@ Comm::BootInfo Comm::ReadBootloaderInfo(int timeout)
     qWarning("get packet: %fs", (double)elapsed.elapsed() / 1000);
     if(result != Success)
     {
-        qWarning(ErrorString(result).toAscii());
+        qWarning(ErrorString(result).toLocal8Bit());
         return bootInfo;
     }
 

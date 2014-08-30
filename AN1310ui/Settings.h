@@ -31,7 +31,7 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include <QtGui/QDialog>
+#include <QDialog>
 #include <QextSerialPort/qextserialbase.h>
 #include <QComboBox>
 

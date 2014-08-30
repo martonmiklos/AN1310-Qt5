@@ -38,12 +38,12 @@ using namespace std;
 #include "Bootload.h"
 #include "../version.h"
 
-void MessageOutput(QtMsgType type, const char *msg);
+void MessageOutput(QtMsgType type, const QMessageLogContext &, const QString &message);
 bool quiet = false;
 
 int main(int argc, char *argv[])
 {
-    qInstallMsgHandler(MessageOutput);
+    qInstallMessageHandler(MessageOutput);
     QCoreApplication a(argc, argv);
     Bootload w;
 
@@ -239,7 +239,7 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 
-void MessageOutput(QtMsgType type, const char *msg)
+void MessageOutput(QtMsgType type, const QMessageLogContext&, const QString& msg)
  {
     switch (type)
     {
@@ -252,11 +252,11 @@ void MessageOutput(QtMsgType type, const char *msg)
         break;
 
     case QtCriticalMsg:
-        cerr << msg << endl;
+        cerr << qPrintable(msg) << endl;
         break;
 
     case QtFatalMsg:
-        cerr << msg << endl;
+        cerr << qPrintable(msg) << endl;
         break;
     }
  }

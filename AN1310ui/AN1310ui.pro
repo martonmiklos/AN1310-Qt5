@@ -1,8 +1,13 @@
 TARGET = "AN1310ui"
 TEMPLATE = app
-QT += sql
+QT += sql gui
 QMAKE_CXXFLAGS_RELEASE = -Os
 INCLUDEPATH += ../
+
+greaterThan(QT_MAJOR_VERSION, 4) {
+    QT += widgets
+}
+
 SOURCES += main.cpp \
     MainWindow.cpp \
     Settings.cpp \
@@ -30,6 +35,7 @@ unix {
     LIBS += -lBootload \
         -lQextSerialPort
 }
+
 win32 { 
     DEFINES += _TTY_WIN_
     CONFIG(debug)
@@ -49,6 +55,7 @@ win32 {
     LIBS += -lsetupapi
     RC_FILE = windows.rc
 }
+
 FORMS += MainWindow.ui \
     Settings.ui
 RESOURCES += resources.qrc
