@@ -11,6 +11,14 @@ TEMPLATE = lib
 CONFIG += staticlib
 QMAKE_CXXFLAGS_RELEASE = -Os
 INCLUDEPATH += ../
+
+OBJECTS_DIR = build
+MOC_DIR = build
+UI_DIR = build
+RCC_DIR=build
+
+DESTDIR = bin
+
 SOURCES += ImportExportHex.cpp \
     DeviceWriter.cpp \
     DeviceWritePlanner.cpp \
@@ -23,6 +31,7 @@ SOURCES += ImportExportHex.cpp \
     Crc.cpp \
     Comm.cpp \
     BootPackets.cpp
+
 HEADERS += ImportExportHex.h \
     DeviceWriter.h \
     DeviceWritePlanner.h \

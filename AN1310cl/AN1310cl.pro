@@ -11,6 +11,14 @@ QMAKE_CXXFLAGS_RELEASE = -Os
 INCLUDEPATH += ../
 SOURCES += main.cpp \
     Bootload.cpp
+
+OBJECTS_DIR = build
+MOC_DIR = build
+UI_DIR = build
+RCC_DIR=build
+
+DESTDIR = bin
+
 unix {
     DEFINES += _TTY_POSIX_
     LIBS += -L../QextSerialPort

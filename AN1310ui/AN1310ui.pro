@@ -8,6 +8,13 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     QT += widgets
 }
 
+OBJECTS_DIR = build
+MOC_DIR = build
+UI_DIR = build
+RCC_DIR=build
+
+DESTDIR = bin
+
 SOURCES += main.cpp \
     MainWindow.cpp \
     Settings.cpp \
