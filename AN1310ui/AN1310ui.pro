@@ -37,31 +37,19 @@ HEADERS += MainWindow.h \
     HexExporter.h
 unix { 
     DEFINES += _TTY_POSIX_
-    LIBS += -L../QextSerialPort
-    LIBS += -L../Bootload
-    LIBS += -lBootload \
-        -lQextSerialPort
 }
 
 win32 { 
     DEFINES += _TTY_WIN_
-    CONFIG(debug)
-     { 
-        LIBS += -L../QextSerialPort/debug
-        LIBS += -L../Bootload/debug
-        OTHER_FILES += ../Bootload/debug/libBootload.a
-    }
-    CONFIG(release)
-     { 
-        LIBS += -L../QextSerialPort/release
-        LIBS += -L../Bootload/release
-        OTHER_FILES += ../Bootload/release/libBootload.a
-    }
-    LIBS += -lBootload \
-        -lQextSerialPort
     LIBS += -lsetupapi
     RC_FILE = windows.rc
 }
+
+LIBS += -L../QextSerialPort/bin
+LIBS += -L../Bootload/bin
+
+LIBS += -lBootload \
+    -lQextSerialPort
 
 FORMS += MainWindow.ui \
     Settings.ui

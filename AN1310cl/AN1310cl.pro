@@ -12,31 +12,18 @@ INCLUDEPATH += ../
 SOURCES += main.cpp \
     Bootload.cpp
 
-OBJECTS_DIR = build
-MOC_DIR = build
-UI_DIR = build
-RCC_DIR=build
-
-DESTDIR = bin
-
 unix {
     DEFINES += _TTY_POSIX_
-    LIBS += -L../QextSerialPort
-    LIBS += -L../Bootload
 }
 
 win32 { 
     DEFINES += _TTY_WIN_
     LIBS += -lsetupapi
-    CONFIG(debug) {
-        LIBS += -L../QextSerialPort/debug
-        LIBS += -L../Bootload/debug
-    }
-    CONFIG(release) {
-        LIBS += -L../QextSerialPort/release
-        LIBS += -L../Bootload/release
-    }
 }
+
+LIBS += -L../QextSerialPort/bin
+LIBS += -L../Bootload/bin
+
 LIBS += -lBootload \
     -lQextSerialPort
 HEADERS += Bootload.h
