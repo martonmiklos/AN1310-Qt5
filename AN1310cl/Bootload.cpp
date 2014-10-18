@@ -36,7 +36,6 @@ using namespace std;
 
 #include "Bootload.h"
 #include "Bootload/ImportExportHex.h"
-#include "Bootload/DeviceSqlLoader.h"
 
 Bootload::Bootload()
 {
@@ -112,6 +111,8 @@ int Bootload::Connect(void)
 
     qDebug("time(2): %fs", (double)totalTime.elapsed() / 1000);
 
+
+
     // First, try talking to the bootloader without going through a
     // device reset. Sometimes this will let us achieve high baud rates
     // when config bits have been lost (which would ordinarily cause us
@@ -177,18 +178,18 @@ int Bootload::Connect(void)
 
     msg.clear();
 
-    DeviceSqlLoader::ErrorCode result = DeviceSqlLoader::loadDevice(device, deviceId.id, (Device::Families)bootInfo.familyId);
+    DeviceDataLoader::ErrorCode result = m_loader.loadDevice(device, deviceId.id, (Device::Families)bootInfo.familyId);
     switch(result)
     {
-        case DeviceSqlLoader::DatabaseMissing:
+        case DeviceDataLoader::DatabaseMissing:
             cout << "Couldn't find device database file. Please copy DEVICES.DB to the executable's folder." << endl;
             return -1;
 
-        case DeviceSqlLoader::DeviceMissing:
+        case DeviceDataLoader::DeviceMissing:
             cout << "Couldn't find Device ID " << deviceId.id << " in the device database." << endl;
             return -1;
 
-        case DeviceSqlLoader::Success:
+        case DeviceDataLoader::Success:
             break;
     }
 

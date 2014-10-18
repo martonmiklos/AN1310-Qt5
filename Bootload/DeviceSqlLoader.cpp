@@ -46,19 +46,9 @@ DeviceSqlLoader::ErrorCode DeviceSqlLoader::loadDevice(Device* device, QString p
     bool deviceFound = false;
 
     device->setUnknown();
-
-    // Try to find the "devices.db" database in the current working directory.
     QString deviceDatabaseFile = DBFILE;
-    QFileInfo fi(deviceDatabaseFile);
-    if(fi.exists() == false)
-    {
-        // Didn't find it, try looking in the application's EXE directory.
-        deviceDatabaseFile = QCoreApplication::applicationDirPath() + QDir::separator() + DBFILE;
-        if(QFileInfo(deviceDatabaseFile).exists() == false)
-        {
-            return DatabaseMissing;
-        }
-    }
+    if (!findDatabase(deviceDatabaseFile))
+        return DeviceDataLoader::DatabaseMissing;
 
     // the following opening code block provides a limited stack context for the
     // database connection, allowing us to disconnect from the database when
@@ -71,8 +61,8 @@ DeviceSqlLoader::ErrorCode DeviceSqlLoader::loadDevice(Device* device, QString p
         QSqlQuery qry(db);
         qry.setForwardOnly(true);
         msg = "select DEVICEID, FAMILYID\n" \
-                    "from DEVICES\n" \
-                    "where PARTNAME = :partName";
+                "from DEVICES\n" \
+                "where PARTNAME = :partName";
         qry.prepare(msg);
         msg.clear();
 
@@ -101,18 +91,9 @@ QStringList DeviceSqlLoader::findDevices(QString query)
     QStringList results;
     QString msg;
 
-    // Try to find the "devices.db" database in the current working directory.
     QString deviceDatabaseFile = DBFILE;
-    QFileInfo fi(deviceDatabaseFile);
-    if(fi.exists() == false)
-    {
-        // Didn't find it, try looking in the application's EXE directory.
-        deviceDatabaseFile = QCoreApplication::applicationDirPath() + QDir::separator() + DBFILE;
-        if(QFileInfo(deviceDatabaseFile).exists() == false)
-        {
-            return results;
-        }
-    }
+    if (!findDatabase(deviceDatabaseFile))
+        return QStringList();
 
     // the following opening code block provides a limited stack context for the
     // database connection, allowing us to disconnect from the database when
@@ -144,6 +125,18 @@ QStringList DeviceSqlLoader::findDevices(QString query)
     return results;
 }
 
+bool DeviceSqlLoader::findDatabase(QString &deviceDatabaseFile)
+{
+    // Try to find the "devices.db" database in the current working directory.
+    QFileInfo fi(deviceDatabaseFile);
+    if (fi.exists() == false) {
+        // Didn't find it, try looking in the application's EXE directory.
+        deviceDatabaseFile = QCoreApplication::applicationDirPath() + QDir::separator() + DBFILE;
+        return QFileInfo(deviceDatabaseFile).exists();
+    }
+    return true;
+}
+
 DeviceSqlLoader::ErrorCode DeviceSqlLoader::loadDevice(Device* device, int deviceId, Device::Families familyId)
 {
     unsigned int deviceRowId;
@@ -154,18 +147,9 @@ DeviceSqlLoader::ErrorCode DeviceSqlLoader::loadDevice(Device* device, int devic
     device->setUnknown();
     device->id = deviceId;
 
-    // Try to find the "devices.db" database in the current working directory.
     QString deviceDatabaseFile = DBFILE;
-    QFileInfo fi(deviceDatabaseFile);
-    if(fi.exists() == false)
-    {
-        // Didn't find it, try looking in the application's EXE directory.
-        deviceDatabaseFile = QCoreApplication::applicationDirPath() + QDir::separator() + DBFILE;
-        if(QFileInfo(deviceDatabaseFile).exists() == false)
-        {
-            return DatabaseMissing;
-        }
-    }
+    if (!findDatabase(deviceDatabaseFile))
+        return DeviceDataLoader::DatabaseMissing;
 
     // the following opening code block provides a limited stack context for the
     // database connection, allowing us to disconnect from the database when
@@ -178,10 +162,10 @@ DeviceSqlLoader::ErrorCode DeviceSqlLoader::loadDevice(Device* device, int devic
         QSqlQuery qry(db);
         qry.setForwardOnly(true);
         msg = "select PARTNAME, WRITEFLASHBLOCKSIZE, ERASEFLASHBLOCKSIZE, STARTFLASH, ENDFLASH," \
-                    "STARTEE, ENDEE, STARTUSER, ENDUSER, STARTCONFIG, ENDCONFIG, STARTGPR, ENDGPR," \
-                    "BYTESPERWORDFLASH, FAMILYID, DEVICEROWID\n" \
-                    "from DEVICES\n" \
-                    "where ";
+                "STARTEE, ENDEE, STARTUSER, ENDUSER, STARTCONFIG, ENDCONFIG, STARTGPR, ENDGPR," \
+                "BYTESPERWORDFLASH, FAMILYID, DEVICEROWID\n" \
+                "from DEVICES\n" \
+                "where ";
         if(familyId != Device::Unknown)
         {
             msg.append(" FAMILYID = ");
@@ -214,35 +198,35 @@ DeviceSqlLoader::ErrorCode DeviceSqlLoader::loadDevice(Device* device, int devic
             device->family = (Device::Families)Device::toInt(qry.value(14));
             switch(device->family)
             {
-                case Device::PIC16:
-                    device->bytesPerAddressFLASH = 2;
-                    device->bytesPerWordEEPROM = 1;
-                    device->flashWordMask = 0x3FFF;
-                    device->configWordMask = 0xFF;
+            case Device::PIC16:
+                device->bytesPerAddressFLASH = 2;
+                device->bytesPerWordEEPROM = 1;
+                device->flashWordMask = 0x3FFF;
+                device->configWordMask = 0xFF;
 
-                    break;
+                break;
 
-                case Device::PIC24:
-                    device->bytesPerAddressFLASH = 2;
-                    device->bytesPerWordEEPROM = 2;
-                    device->flashWordMask = 0xFFFFFF;
-                    device->configWordMask = 0xFFFF;
-                    device->writeBlockSizeFLASH *= 2;       // temporary
-                    device->eraseBlockSizeFLASH *= 2;
-                    break;
+            case Device::PIC24:
+                device->bytesPerAddressFLASH = 2;
+                device->bytesPerWordEEPROM = 2;
+                device->flashWordMask = 0xFFFFFF;
+                device->configWordMask = 0xFFFF;
+                device->writeBlockSizeFLASH *= 2;       // temporary
+                device->eraseBlockSizeFLASH *= 2;
+                break;
 
-                case Device::PIC32:
-                    device->flashWordMask = 0xFFFFFFFF;
-                    device->configWordMask = 0xFFFFFFFF;
-                    device->bytesPerAddressFLASH = 1;
-                    break;
+            case Device::PIC32:
+                device->flashWordMask = 0xFFFFFFFF;
+                device->configWordMask = 0xFFFFFFFF;
+                device->bytesPerAddressFLASH = 1;
+                break;
 
-                case Device::PIC18:
-                default:
-                    device->flashWordMask = 0xFFFF;
-                    device->configWordMask = 0xFF;
-                    device->bytesPerAddressFLASH = 1;
-                    device->bytesPerWordEEPROM = 1;
+            case Device::PIC18:
+            default:
+                device->flashWordMask = 0xFFFF;
+                device->configWordMask = 0xFF;
+                device->bytesPerAddressFLASH = 1;
+                device->bytesPerWordEEPROM = 1;
             }
             deviceRowId = Device::toUInt(qry.value(15));
             qry.clear();

@@ -43,6 +43,7 @@
 #include "Bootload/DeviceWriter.h"
 #include "Bootload/DeviceVerifier.h"
 #include "Bootload/ImportExportHex.h"
+#include "Bootload/DeviceSqlLoader.h"
 #include "FlashViewModel.h"
 #include "EepromViewModel.h"
 #include "ConfigBitsView.h"
@@ -146,6 +147,8 @@ private:
 
     bool allowRxFileOverwrite;
     bool wasBootloaderMode;
+
+    DeviceSqlLoader m_loader;
 
 private slots:
     void on_action_Save_triggered();

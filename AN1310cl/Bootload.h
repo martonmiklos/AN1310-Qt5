@@ -37,6 +37,13 @@
 #include "Bootload/DeviceReader.h"
 #include "Bootload/DeviceWriter.h"
 #include "Bootload/DeviceVerifier.h"
+#include "Bootload/DeviceDataLoader.h"
+
+#ifdef SINGLE_DEVICE_SUPPORT
+#include "Bootload/SingleDeviceDataLoader.h"
+#else
+#include "Bootload/DeviceSqlLoader.h"
+#endif
 
 class Bootload : public QObject
 {
@@ -87,6 +94,11 @@ protected:
 
 private:
     int failed;
+#ifdef SINGLE_DEVICE_SUPPORT
+    SingleDeviceDataLoader m_loader;
+#else
+    DeviceSqlLoader m_loader;
+#endif
 
 };
 

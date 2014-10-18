@@ -27,22 +27,20 @@
 #define DEVICESQLLOADER_H
 
 #include "Device.h"
+#include "DeviceDataLoader.h"
 #include <QStringList>
 
-class DeviceSqlLoader
+class DeviceSqlLoader : public DeviceDataLoader
 {
 public:
     DeviceSqlLoader();
 
-    enum ErrorCode
-    {
-        Success = 0, DatabaseMissing, DeviceMissing
-    };
+    DeviceDataLoader::ErrorCode loadDevice(Device* device, int deviceId, Device::Families familyId);
+    DeviceDataLoader::ErrorCode loadDevice(Device* device, QString partName);
 
-    static DeviceSqlLoader::ErrorCode loadDevice(Device* device, int deviceId, Device::Families familyId);
-    static DeviceSqlLoader::ErrorCode loadDevice(Device* device, QString partName);
-
-    static QStringList findDevices(QString query);
+    QStringList findDevices(QString query);
+private:
+    bool findDatabase(QString &deviceDatabaseFile);
 };
 
 #endif // DEVICESQLLOADER_H

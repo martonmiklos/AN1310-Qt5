@@ -38,14 +38,13 @@
 #include <QSettings>
 #include <QDesktopWidget>
 #include <QtGlobal>
+
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 #include <QtConcurrent/QtConcurrent>
 #else
 #include <QtConcurrentRun>
 #endif
 #include <QFuture>
-
-#include "Bootload/DeviceSqlLoader.h"
 
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
@@ -1952,7 +1951,7 @@ QString MainWindow::SelectDevice(unsigned int deviceId, Device::Families familyI
     QString msg;
     QTextStream out(&msg);
 
-    DeviceSqlLoader::ErrorCode result = DeviceSqlLoader::loadDevice(device, deviceId, familyId);
+    DeviceSqlLoader::ErrorCode result = m_loader.loadDevice(device, deviceId, familyId);
     switch(result)
     {
         case DeviceSqlLoader::DatabaseMissing:

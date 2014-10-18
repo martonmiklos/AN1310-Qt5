@@ -30,7 +30,9 @@ SOURCES += ImportExportHex.cpp \
     Device.cpp \
     Crc.cpp \
     Comm.cpp \
-    BootPackets.cpp
+    BootPackets.cpp \
+    DeviceDataLoader.cpp \
+    SingleDeviceDataLoader.cpp
 
 HEADERS += ImportExportHex.h \
     DeviceWriter.h \
@@ -43,6 +45,10 @@ HEADERS += ImportExportHex.h \
     Device.h \
     Crc.h \
     Comm.h \
-    BootPackets.h
+    BootPackets.h \
+    DeviceDataLoader.h \
+    SingleDeviceDataLoaderData.h \
+    SingleDeviceDataLoader.h
+
 unix:DEFINES += _TTY_POSIX_
 win32:DEFINES += _TTY_WIN_

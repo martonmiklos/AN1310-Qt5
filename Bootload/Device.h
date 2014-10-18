@@ -43,7 +43,15 @@ class Device
 public:
     enum Families
     {
-        Unknown = 0, Baseline = 1, PIC16, PIC17, PIC18, PIC24, dsPIC30, dsPIC33, PIC32
+        Unknown = 0,
+        Baseline = 1,
+        PIC16,
+        PIC17,
+        PIC18,
+        PIC24,
+        dsPIC30,
+        dsPIC33,
+        PIC32
     };
 
     Device();
@@ -60,9 +68,12 @@ public:
 
     int bytesPerWordEEPROM;
     int bytesPerWordFLASH;
+
     int bytesPerAddressFLASH;   // number of bytes per address
+
     unsigned int eraseBlockSizeFLASH;    // number of bytes erased at a time
     int writeBlockSizeFLASH;    // number of bytes written at a time
+
     unsigned int flashWordMask;
     unsigned int blankValue;
 
@@ -93,6 +104,7 @@ public:
 
     unsigned int startDeviceId;
     unsigned int endDeviceId;
+
     unsigned int deviceIdMask;
     unsigned int configWordMask;
 
