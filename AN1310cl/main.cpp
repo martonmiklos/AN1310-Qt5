@@ -38,12 +38,20 @@ using namespace std;
 #include "Bootload.h"
 #include "../version.h"
 
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
 void MessageOutput(QtMsgType type, const QMessageLogContext &, const QString &message);
+#else
+void MessageOutput(QtMsgType type, const char *msg);
+#endif
 bool quiet = false;
 
 int main(int argc, char *argv[])
 {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
     qInstallMessageHandler(MessageOutput);
+#else
+    qInstallMsgHandler(MessageOutput);
+#endif
     QCoreApplication a(argc, argv);
     Bootload w;
 
@@ -239,8 +247,12 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 
-void MessageOutput(QtMsgType type, const QMessageLogContext&, const QString& msg)
- {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 0, 0))
+void MessageOutput(QtMsgType type, const QMessageLogContext &, const QString &msg)
+#else
+void MessageOutput(QtMsgType type, const char *msg)
+#endif
+{
     switch (type)
     {
     case QtDebugMsg:
