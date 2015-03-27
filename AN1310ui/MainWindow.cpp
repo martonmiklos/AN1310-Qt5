@@ -1410,7 +1410,14 @@ void MainWindow::openRecentFile(void)
         }
         else if(ui->tabWidget->isVisible())
         {
-            LoadFile(action->data().toString());
+            if (LoadFile(action->data().toString()) != 0) {
+                // remove unopenable files from recent list
+                QSettings settings;
+                QStringList files = settings.value("recentFileList").toStringList();
+                files.removeAll(action->data().toString());
+                settings.setValue("recentFileList", files);
+                ui->menuFile->removeAction(action);
+            }
         }
     }
 }

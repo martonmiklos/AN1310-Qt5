@@ -112,7 +112,6 @@ int Bootload::Connect(void)
     qDebug("time(2): %fs", (double)totalTime.elapsed() / 1000);
 
 
-
     // First, try talking to the bootloader without going through a
     // device reset. Sometimes this will let us achieve high baud rates
     // when config bits have been lost (which would ordinarily cause us
@@ -136,6 +135,7 @@ int Bootload::Connect(void)
         while(elapsed.elapsed() < 5) // ms
         {
         }
+        usleep(1000000);
 
         qDebug("time(3.2): %fs", (double)totalTime.elapsed() / 1000);
         comm->releaseIntoBootloader();

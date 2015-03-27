@@ -39,6 +39,7 @@
 #include <QCoreApplication>
 #include <QTime>
 #include <QThread>
+#include <QDebug>
 
 const int Comm::SyncWaitTime = 50;
 
@@ -187,7 +188,6 @@ void Comm::releaseBreak(void)
 void Comm::releaseIntoBootloader(void)
 {
     QTime elapsed;
-
     releaseReset();
     // wait 25ms to allow MCLR to release
     elapsed.start();

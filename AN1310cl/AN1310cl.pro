@@ -50,3 +50,20 @@ UI_DIR = build
 RCC_DIR=build
 
 DESTDIR = bin
+
+unix {
+    #VARIABLES
+    isEmpty(PREFIX) {
+    PREFIX = /usr
+    }
+    BINDIR = $$PREFIX/bin
+    DATADIR =$$PREFIX/share
+
+    DEFINES += DATADIR=\\\"$$DATADIR\\\" PKGDATADIR=\\\"$$PKGDATADIR\\\"
+
+    #MAKE INSTALL
+
+    INSTALLS += target
+
+    target.path =$$BINDIR
+}

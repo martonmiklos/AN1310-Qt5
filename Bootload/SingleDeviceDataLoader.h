@@ -2,6 +2,7 @@
 #define SINGELDEVICELOADER_H
 
 #include <QList>
+#include <QStringList>
 
 #include "DeviceDataLoader.h"
 
