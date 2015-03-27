@@ -1413,6 +1413,7 @@ void MainWindow::openRecentFile(void)
             if (LoadFile(action->data().toString()) != 0) {
                 // remove unopenable files from recent list
                 QSettings settings;
+                settings.beginGroup("MainWindow");
                 QStringList files = settings.value("recentFileList").toStringList();
                 files.removeAll(action->data().toString());
                 settings.setValue("recentFileList", files);
