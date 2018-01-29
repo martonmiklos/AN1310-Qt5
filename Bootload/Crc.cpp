@@ -63,12 +63,12 @@ Crc::Crc(unsigned short init)
     crc = init;
 }
 
-unsigned char Crc::MSB(void)
+quint8 Crc::MSB(void)
 {
     return (crc >> 8);
 }
 
-unsigned char Crc::LSB(void)
+quint8 Crc::LSB(void)
 {
     return crc;
 }
@@ -78,7 +78,7 @@ unsigned short Crc::Value(void)
     return crc;
 }
 
-void Crc::Add(unsigned char byte)
+void Crc::Add(quint8 byte)
 {
     unsigned int i;
 

@@ -53,7 +53,7 @@ public:
     DeviceWriter(Device* newDevice, Comm* newComm);
     ~DeviceWriter();
 
-    Comm::ErrorCode EraseFlash(int startAddress, int endAddress);
+    Comm::ErrorCode EraseFlash(unsigned int startAddress, unsigned int endAddress);
     Comm::ErrorCode EraseFlash(QLinkedList<Device::MemoryRange> eraseList);
     Comm::ErrorCode WriteFlash(DeviceData* deviceData, unsigned int startAddress, unsigned int endAddress, unsigned int* existingMemory = NULL);
     Comm::ErrorCode WriteFlashMemory(unsigned int* memory, unsigned int startAddress, unsigned int endAddress, QVector<QByteArray>* macData = NULL);

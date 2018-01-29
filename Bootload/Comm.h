@@ -67,9 +67,9 @@ public:
 
     struct BootInfo
     {
-        unsigned char majorVersion;
-        unsigned char minorVersion;
-        unsigned char familyId;
+        quint8 majorVersion;
+        quint8 minorVersion;
+        quint8 familyId;
         unsigned int commandMask;
         unsigned int startBootloader;
         unsigned int endBootloader;

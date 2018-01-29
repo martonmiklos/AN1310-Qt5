@@ -245,11 +245,11 @@ Comm::ErrorCode Comm::GetPacket(QByteArray& receivePacket, int timeout)
             junkReceived++;
             if(junkReceived < 10)
             {
-                qWarning("Expected STX, received junk: %X", (unsigned char) byte);
+                qWarning("Expected STX, received junk: %X", (quint8) byte);
             }
             else if(junkReceived == 10)
             {
-                qWarning("Expected STX, received junk: %X... (further messages suppressed)", (unsigned char) byte);
+                qWarning("Expected STX, received junk: %X... (further messages suppressed)", (quint8) byte);
             }
             else if(junkReceived > 100)
             {
@@ -319,9 +319,9 @@ Comm::ErrorCode Comm::GetPacket(QByteArray& receivePacket, int timeout)
                     }
 
                     size = receivePacket.count() - 2;
-                    packetCrc = (unsigned char)receivePacket[size+1];
+                    packetCrc = (quint8)receivePacket[size+1];
                     packetCrc <<= 8;
-                    packetCrc |= (unsigned char)receivePacket[size];
+                    packetCrc |= (quint8)receivePacket[size];
                     receivePacket.chop(2);      // chop off the CRC, nobody above us needs that
 
                     if(crc.Value() != packetCrc)
@@ -384,11 +384,11 @@ Comm::ErrorCode Comm::GetCrcData(QByteArray& receivePacket)
             junkReceived++;
             if(junkReceived < 10)
             {
-                qWarning("Expected STX, received junk: %X", (unsigned char) byte);
+                qWarning("Expected STX, received junk: %X", (quint8) byte);
             }
             else if(junkReceived == 10)
             {
-                qWarning("Expected STX, received junk: %X... (further messages suppressed)", (unsigned char) byte);
+                qWarning("Expected STX, received junk: %X... (further messages suppressed)", (quint8) byte);
             }
             else if(junkReceived > 100)
             {
@@ -664,7 +664,7 @@ Comm::BootInfo Comm::ReadBootloaderInfo(int timeout)
             serial->read(1);
             if(junkReport)
             {
-                qWarning("Received junk %x %fs", (unsigned char) response[0], (double)elapsed.elapsed() / 1000);
+                qWarning("Received junk %x %fs", (quint8) response[0], (double)elapsed.elapsed() / 1000);
                 junkReport--;
             }
         }
@@ -674,28 +674,27 @@ Comm::BootInfo Comm::ReadBootloaderInfo(int timeout)
     response.clear();
     result = GetPacket(response);
     qWarning("get packet: %fs", (double)elapsed.elapsed() / 1000);
-    if(result != Success)
-    {
-        qWarning(ErrorString(result).toLocal8Bit());
+    if(result != Success) {
+        qWarning() << ErrorString(result);
         return bootInfo;
     }
 
-    bootInfo.minorVersion = (unsigned char)response[3];
-    bootInfo.majorVersion = (unsigned char)response[2];
+    bootInfo.minorVersion = (quint8)response[3];
+    bootInfo.majorVersion = (quint8)response[2];
     bootInfo.familyId = response[5] & 0x0F;
-    bootInfo.commandMask = (unsigned char)response[4] |
-                           (((unsigned char)response[5] & 0xF0) << 4);
-    bootInfo.startBootloader = ((unsigned char)response[6] & 0xFF) |
-                               (((unsigned char)response[7] & 0xFF) << 8) |
-                               (((unsigned char)response[8] & 0xFF) << 16) |
-                               (((unsigned char)response[9] & 0xFF) << 24);
+    bootInfo.commandMask = (quint8)response[4] |
+                           (((quint8)response[5] & 0xF0) << 4);
+    bootInfo.startBootloader = ((quint8)response[6] & 0xFF) |
+                               (((quint8)response[7] & 0xFF) << 8) |
+                               (((quint8)response[8] & 0xFF) << 16) |
+                               (((quint8)response[9] & 0xFF) << 24);
     bootInfo.endBootloader  = bootInfo.startBootloader;
-    bootInfo.endBootloader += (unsigned char)response[0];
-    bootInfo.endBootloader += (unsigned char)response[1] << 8;
+    bootInfo.endBootloader += (quint8)response[0];
+    bootInfo.endBootloader += (quint8)response[1] << 8;
     if(response.size() > 10)
     {
-        bootInfo.deviceId  = (unsigned char)response[10];
-        bootInfo.deviceId += (unsigned char)response[11] << 8;
+        bootInfo.deviceId  = (quint8)response[10];
+        bootInfo.deviceId += (quint8)response[11] << 8;
     }
     qWarning("Firmware v%d.%02d at address %x to %x.", bootInfo.majorVersion, bootInfo.minorVersion,
              bootInfo.startBootloader, bootInfo.endBootloader);

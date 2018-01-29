@@ -102,7 +102,7 @@ EraseFlashPacket::EraseFlashPacket()
  * @param blocks Number of flashEraseBlockSize sized blocks for the
  *  bootloader to iterate and erase.
  */
-void EraseFlashPacket::setBlocks(unsigned char blocks)
+void EraseFlashPacket::setBlocks(quint8 blocks)
 {
     (*this)[5] = blocks;
 }
@@ -157,6 +157,7 @@ BootloaderInfoPacket::BootloaderInfoPacket()
  */
 void BootloaderInfoPacket::setAddress(unsigned int address)
 {
+    Q_UNUSED(address)
     qWarning("setAddress is not supported by ReadBootloaderInfo packets.");
 }
 
@@ -179,7 +180,7 @@ int WriteFlashPacket::payloadSize(void)
     return count() - headerSize;
 }
 
-unsigned char WriteFlashPacket::blocks(void)
+quint8 WriteFlashPacket::blocks(void)
 {
     return (*this)[5];
 }
@@ -188,7 +189,7 @@ unsigned char WriteFlashPacket::blocks(void)
  * @param blocks Number of flashWriteBlockSize sized blocks for the
  *  bootloader to write to FLASH.
  */
-void WriteFlashPacket::setBlocks(unsigned char blocks)
+void WriteFlashPacket::setBlocks(quint8 blocks)
 {
     (*this)[5] = blocks;
 }
@@ -230,7 +231,7 @@ WriteConfigPacket::WriteConfigPacket()
     (*this)[0] = WriteConfig;
 }
 
-void WriteConfigPacket::setBytes(unsigned char bytes)
+void WriteConfigPacket::setBytes(quint8 bytes)
 {
     (*this)[5] = bytes;
 }

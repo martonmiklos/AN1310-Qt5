@@ -207,6 +207,9 @@ void HexExporter::ExportEeprom(DeviceData* data, Device* device, QList<Device::M
 
 void HexExporter::ExportConfig(DeviceData* data, Device* device, QList<Device::MemoryRange> ranges)
 {
+    Q_UNUSED(data)
+    Q_UNUSED(device)
+    Q_UNUSED(ranges)
 }
 
 void HexExporter::ExportFlash(DeviceData* data, Device* device, QList<Device::MemoryRange> ranges)
@@ -302,7 +305,7 @@ void HexExporter::xmit(const QByteArray& data)
 {
     QByteArray msg;
     QTextStream stream(&msg);
-    unsigned char checksum;
+    quint8 checksum;
 
     stream.setIntegerBase(16);
     stream.setNumberFlags(QTextStream::UppercaseDigits);
@@ -316,8 +319,8 @@ void HexExporter::xmit(const QByteArray& data)
 
     for(int i = 0; i < data.length(); i++)
     {
-        stream << (unsigned char)data[i];
-        checksum += (unsigned char)data[i];
+        stream << (quint8)data[i];
+        checksum += (quint8)data[i];
     }
 
     checksum = 0x01 + ~(checksum);

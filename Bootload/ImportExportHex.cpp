@@ -365,7 +365,7 @@ HexImporter::ErrorCode HexImporter::ImportHexFile(QString fileName, DeviceData* 
     return Success;
 }
 
-unsigned char HexImporter::computeChecksum(char* fileLine)
+quint8 HexImporter::computeChecksum(char* fileLine)
 {
     unsigned int byteCount = ParseHex(&fileLine[1], 2);
     if (strlen(fileLine) >= (9 + (2* byteCount)))
@@ -376,7 +376,7 @@ unsigned char HexImporter::computeChecksum(char* fileLine)
             checksum += ParseHex(fileLine + 3 + (2*i), 2);
         }
         checksum = 0 - checksum;
-        return (unsigned char)(checksum & 0xFF);
+        return (quint8)(checksum & 0xFF);
     }
 
     return 0;

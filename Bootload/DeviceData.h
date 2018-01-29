@@ -39,7 +39,7 @@
 typedef struct
 {
     unsigned int address;
-    unsigned char mac[16];
+    quint8 mac[16];
 } MAC;
 
 /*!
@@ -56,7 +56,7 @@ class DeviceData
         void ClearConfigWords(void);
         unsigned int* ConfigWordPointer(unsigned int wordAddress);
 
-        void ClearUserIDs(unsigned char numIDs, int idBytes, unsigned int memBlankVal);
+        void ClearUserIDs(quint8 numIDs, int idBytes, unsigned int memBlankVal);
         void ClearEEPromMemory(unsigned int memBlankVal);
         void CopyProgramMemory(unsigned int* memory);
 

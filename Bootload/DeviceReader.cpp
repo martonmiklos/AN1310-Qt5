@@ -620,19 +620,19 @@ Comm::ErrorCode DeviceReader::ReadConfig(unsigned int* memory, unsigned int star
 
             if(device->family == Device::PIC32)
             {
-                *memory = (unsigned int)((unsigned char)readData[i++]);
-                *memory |= ((unsigned int)((unsigned char)readData[i++])) << 8;
-                *memory |= ((unsigned int)((unsigned char)readData[i++])) << 16;
-                *memory |= ((unsigned int)((unsigned char)readData[i++])) << 24;
+                *memory = (unsigned int)((quint8)readData[i++]);
+                *memory |= ((unsigned int)((quint8)readData[i++])) << 8;
+                *memory |= ((unsigned int)((quint8)readData[i++])) << 16;
+                *memory |= ((unsigned int)((quint8)readData[i++])) << 24;
                 //*memory &= implementedBits;
                 *memory++;
                 readAddress += 4;
             }
             else if(device->family == Device::PIC24)
             {
-                *memory = (unsigned int)((unsigned char)readData[i++]);
-                *memory |= ((unsigned int)((unsigned char)readData[i++])) << 8;
-                *memory |= ((unsigned int)((unsigned char)readData[i++])) << 16;
+                *memory = (unsigned int)((quint8)readData[i++]);
+                *memory |= ((unsigned int)((quint8)readData[i++])) << 8;
+                *memory |= ((unsigned int)((quint8)readData[i++])) << 16;
 //                *memory &= implementedBits;
                 *memory++;
                 readAddress += 2;
@@ -678,19 +678,19 @@ Comm::ErrorCode DeviceReader::ReadConfig(unsigned int* memory, unsigned int star
 
         if(device->family == Device::PIC32)
         {
-            *memory = (unsigned int)((unsigned char)readData[i++]);
-            *memory |= ((unsigned int)((unsigned char)readData[i++])) << 8;
-            *memory |= ((unsigned int)((unsigned char)readData[i++])) << 16;
-            *memory |= ((unsigned int)((unsigned char)readData[i++])) << 24;
+            *memory = (unsigned int)((quint8)readData[i++]);
+            *memory |= ((unsigned int)((quint8)readData[i++])) << 8;
+            *memory |= ((unsigned int)((quint8)readData[i++])) << 16;
+            *memory |= ((unsigned int)((quint8)readData[i++])) << 24;
             //*memory &= implementedBits;
             *memory++;
             readAddress += 4;
         }
         else if(device->family == Device::PIC24)
         {
-            *memory = (unsigned int)((unsigned char)readData[i++]);
-            *memory |= ((unsigned int)((unsigned char)readData[i++])) << 8;
-            *memory |= ((unsigned int)((unsigned char)readData[i++])) << 16;
+            *memory = (unsigned int)((quint8)readData[i++]);
+            *memory |= ((unsigned int)((quint8)readData[i++])) << 8;
+            *memory |= ((unsigned int)((quint8)readData[i++])) << 16;
 //            *memory &= implementedBits;
             *memory++;
             readAddress += 2;

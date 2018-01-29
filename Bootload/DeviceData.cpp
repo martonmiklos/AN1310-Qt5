@@ -125,23 +125,23 @@ void DeviceData::ClearConfigWords(void)
  */
 unsigned int* DeviceData::ConfigWordPointer(unsigned int wordAddress)
 {
-    unsigned char* wordValue;
+    quint8* wordValue;
     if(device->hasConfigAsFuses())
     {
         wordAddress -= device->startConfig;
 
         if(device->family == Device::PIC32)
         {
-            wordValue = (unsigned char*)&ConfigWords[wordAddress >> 2];
+            wordValue = (quint8*)&ConfigWords[wordAddress >> 2];
         }
         else
         {
-            wordValue = (unsigned char*)&ConfigWords[wordAddress >> 1];
+            wordValue = (quint8*)&ConfigWords[wordAddress >> 1];
         }
     }
     else if(device->hasConfigAsFlash())
     {
-        wordValue = (unsigned char*)device->flashPointer(wordAddress, ProgramMemory);
+        wordValue = (quint8*)device->flashPointer(wordAddress, ProgramMemory);
     }
     else
     {
@@ -156,7 +156,7 @@ unsigned int* DeviceData::ConfigWordPointer(unsigned int wordAddress)
 }
 
 
-void DeviceData::ClearUserIDs(unsigned char numIDs, int idBytes, unsigned int memBlankVal)
+void DeviceData::ClearUserIDs(quint8 numIDs, int idBytes, unsigned int memBlankVal)
 {
     if (numIDs> 0)
     {

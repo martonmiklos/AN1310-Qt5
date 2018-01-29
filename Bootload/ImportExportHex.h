@@ -55,7 +55,7 @@ public:
 
 protected:
     int ParseHex(char* characters, int length);
-    unsigned char computeChecksum(char* fileLine);
+    quint8 computeChecksum(char* fileLine);
 
 };
 

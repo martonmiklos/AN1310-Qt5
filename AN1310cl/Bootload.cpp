@@ -653,7 +653,6 @@ int Bootload::VerifyDevice(bool verifyFlash)
     double flashTime = 0, eepromTime = 0, configTime = 0;
     bool flash = false, eeprom = false, config = false;
     int i, readFlashFailed = 0, readEepromFailed = 0, readConfigFailed = 0;
-    bool refreshViews = false;
     int flashFails = 0, eepromFails = 0, configFails = 0;
     unsigned int failAddress = device->startFLASH;
     Device::MemoryRange range;
@@ -669,7 +668,6 @@ int Bootload::VerifyDevice(bool verifyFlash)
         range.end = device->endConfig;
         readFlashFailed = deviceReader->ReadFlash(device->flashPointer(device->endFLASH - device->eraseBlockSizeFLASH, verifyData->ProgramMemory), device->endFLASH - device->eraseBlockSizeFLASH, range.end);
         countFlashVerifyFailures(flashFails, failAddress, range);
-        refreshViews = true;
 
         flashTime = ((double)elapsed.elapsed()) / 1000;
         flash = true;
@@ -800,7 +798,6 @@ int Bootload::VerifyDevice(bool verifyFlash)
 
         if(flashFails || eepromFails || configFails)
         {
-            refreshViews = true;
             failed = -2;
             msg.clear();
             stream.setIntegerBase(16);

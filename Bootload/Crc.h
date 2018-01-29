@@ -1,6 +1,8 @@
 #ifndef CRC_H
 #define CRC_H
 
+#include <qglobal.h>
+
 /*!
  * Calculates 16-bit CCITT CRC values using fast lookup table algorithm.
  */
@@ -8,10 +10,10 @@ class Crc
 {
 public:
     Crc(unsigned short init = 0);
-    void Add(unsigned char byte);
+    void Add(quint8 byte);
 
-    unsigned char MSB(void);
-    unsigned char LSB(void);
+    quint8 MSB(void);
+    quint8 LSB(void);
     unsigned short Value(void);
 
 protected:

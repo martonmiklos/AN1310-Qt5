@@ -114,7 +114,7 @@ class EraseFlashPacket : public BootPacket
 {
 public:
     EraseFlashPacket();
-    void setBlocks(unsigned char blocks);
+    void setBlocks(quint8 blocks);
 };
 
 /*!
@@ -143,8 +143,8 @@ class WriteFlashPacket : public BootPacket
 public:
     WriteFlashPacket();
     int payloadSize(void);
-    void setBlocks(unsigned char blocks);
-    unsigned char blocks(void);
+    void setBlocks(quint8 blocks);
+    quint8 blocks(void);
 
     static const int headerSize;
 };
@@ -190,7 +190,7 @@ public:
     static const int headerSize;
 
 protected:
-    void setBytes(unsigned char bytes);
+    void setBytes(quint8 bytes);
 };
 
 /*!

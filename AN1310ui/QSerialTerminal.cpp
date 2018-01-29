@@ -257,7 +257,7 @@ void QSerialTerminal::flushText(QString& text, QTextCursor& cursor)
 void QSerialTerminal::serialReceive()
 {
     QString text;
-    unsigned char byte;
+    quint8 byte;
     int i;
     QByteArray data = serial->read(serial->bytesAvailable());    
     int dataCount = data.count();

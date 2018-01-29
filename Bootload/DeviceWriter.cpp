@@ -119,7 +119,7 @@ Comm::ErrorCode DeviceWriter::EraseFlash(QLinkedList<Device::MemoryRange> eraseL
  */
 // Warning: do not blindly change these address variables to "unsigned int" yet.
 // This code currently breaks on PIC18/16 if you do that.
-Comm::ErrorCode DeviceWriter::EraseFlash(int startAddress, int endAddress)
+Comm::ErrorCode DeviceWriter::EraseFlash(unsigned int startAddress, unsigned int endAddress)
 {
     QString msg;
     QTextStream stream(&msg);
