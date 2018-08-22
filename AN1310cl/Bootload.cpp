@@ -135,7 +135,7 @@ int Bootload::Connect(void)
         while(elapsed.elapsed() < 5) // ms
         {
         }
-        usleep(1000000);
+        QThread::usleep(1000000);
 
         qDebug("time(3.2): %fs", (double)totalTime.elapsed() / 1000);
         comm->releaseIntoBootloader();

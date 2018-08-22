@@ -21,25 +21,27 @@ contains(SINGLE_DEVICE_SUPPORT, "YES") {
 
 TEMPLATE = app
 
-QMAKE_CXXFLAGS_RELEASE = -Os
 INCLUDEPATH += ../
 SOURCES += main.cpp \
     Bootload.cpp
+
+LIBS += -L../QextSerialPort/bin
+LIBS += -L../Bootload/bin
+
+# order of the linker flags is important!!!
+# link with BootLoad and QextSerial first only after
+# link setupapi!
+LIBS += -lBootload \
+    -lQextSerialPort
 
 unix {
     DEFINES += _TTY_POSIX_
 }
 
-win32 { 
+windows {
     DEFINES += _TTY_WIN_
     LIBS += -lsetupapi
 }
-
-LIBS += -L../QextSerialPort/bin
-LIBS += -L../Bootload/bin
-
-LIBS += -lBootload \
-    -lQextSerialPort
 
 HEADERS += Bootload.h
 
@@ -54,7 +56,7 @@ DESTDIR = bin
 unix {
     #VARIABLES
     isEmpty(PREFIX) {
-    PREFIX = /usr
+        PREFIX = /usr
     }
     BINDIR = $$PREFIX/bin
     DATADIR =$$PREFIX/share

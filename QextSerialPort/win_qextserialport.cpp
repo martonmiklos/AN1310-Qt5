@@ -168,7 +168,7 @@ bool Win_QextSerialPort::open(OpenMode mode)
     QueueReceiveSignals = 10;
     portName = "\\\\.\\";       // required for COM ports beyond COM9
     portName.append(port);
-    Win_Handle = CreateFileA(portName.toAscii(),
+    Win_Handle = CreateFileA(portName.toLocal8Bit().constData(),
                              GENERIC_READ|GENERIC_WRITE,
                              0,
                              0,
@@ -406,7 +406,7 @@ void Win_QextSerialReaderThread::run()
         readComplete = ReadFile(handle, (void*)rxbuffer[buffer], requestSize, &readSize, &overlapRead);
         if(lastReadSize)
         {
-            if(parent->recordingFile.isOpen());
+            if(parent->recordingFile.isOpen())
             {
                 parent->recordingFile.write(rxbuffer[buffer ^ 1], lastReadSize);
             }
@@ -426,7 +426,7 @@ void Win_QextSerialReaderThread::run()
         }
         else
         {
-            if(parent->recordingFile.isOpen());
+            if(parent->recordingFile.isOpen())
             {
                 parent->recordingFile.flush();
             }

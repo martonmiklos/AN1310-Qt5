@@ -489,7 +489,7 @@ Comm::ErrorCode Comm::SendPacket(const QByteArray& sendPacket)
         }
 
         QCoreApplication::processEvents();
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
         Sleep(100);
 #else
         timeval sleepTime;

@@ -9,7 +9,6 @@ QT += sql
 TARGET = Bootload
 TEMPLATE = lib
 CONFIG += staticlib
-QMAKE_CXXFLAGS_RELEASE = -Os
 INCLUDEPATH += ../
 
 OBJECTS_DIR = build

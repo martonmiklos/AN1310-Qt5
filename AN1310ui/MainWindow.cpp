@@ -1546,7 +1546,7 @@ void MainWindow::modifiedFile(const QString& path)
                     elapsed.start();
                 }
 
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN
                 Sleep(100);
 #else
                 timeval sleepTime;

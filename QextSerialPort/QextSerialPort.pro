@@ -8,7 +8,6 @@ QT       -= gui
 TARGET = QextSerialPort
 TEMPLATE = lib
 CONFIG += staticlib
-QMAKE_CXXFLAGS_RELEASE = -Os
 
 OBJECTS_DIR = build
 MOC_DIR = build
@@ -30,6 +29,7 @@ unix {
     SOURCES += posix_qextserialport.cpp
     DEFINES += _TTY_POSIX_
 }
+
 win32 {
     HEADERS += win_qextserialport.h
     SOURCES += win_qextserialport.cpp
