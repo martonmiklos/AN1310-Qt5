@@ -45,3 +45,5 @@ build
 buildnumber.h
 buildnumber.tmp
 *.tmp
+*/bin
+*/build
