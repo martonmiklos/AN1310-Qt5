@@ -2,6 +2,8 @@
 
 A modified version of the [Microchip's AN1310 bootloader's](http://www.microchip.com/wwwAppNotes/AppNotes.aspx?appnote=en546974) host applications made compilable with Qt5.
 
+Please be aware that this code is under a restrictive license from Microchip. See LICENSE or the header comments in the files for details.
+
 Additional modifications:
 
  - Added ability to compile the AN1310cl without SQL support. If you
