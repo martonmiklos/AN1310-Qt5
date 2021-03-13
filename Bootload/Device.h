@@ -120,8 +120,14 @@ public:
     unsigned int startGPR;
     unsigned int endGPR;
 
-    struct MemoryRange
+    class MemoryRange
     {
+    public:
+        MemoryRange(unsigned int start_ = 0, unsigned int end_ = 0)
+        {
+            start = start_;
+            end = end_;
+        }
         unsigned int start;
         unsigned int end;
     };

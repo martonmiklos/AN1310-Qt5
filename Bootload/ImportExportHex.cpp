@@ -32,10 +32,6 @@
 #include "ImportExportHex.h"
 #include "Device.h"
 
-HexImporter::HexImporter(void)
-{
-}
-
 HexImporter::~HexImporter(void)
 {
 }
@@ -96,10 +92,6 @@ HexImporter::ErrorCode HexImporter::ImportHexFile(QString fileName, DeviceData* 
     QByteArray mac;
 
     Device::MemoryRange range, rawRange;
-    range.start = 0;
-    range.end = 0;
-    rawRange.start = 0;
-    rawRange.end = 0;
     ranges.clear();
     rawimport.clear();
     hasConfigBits = false;

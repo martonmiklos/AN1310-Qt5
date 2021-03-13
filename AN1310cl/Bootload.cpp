@@ -471,12 +471,8 @@ int Bootload::WriteDevice(DeviceData* newData, DeviceData* existingData)
     {
         // user did not check mark write FLASH option, but does
         // want to write FLASH config bits. Need to handle special case here..
-        Device::MemoryRange preserve, write;
-
-        write.start = device->endFLASH - device->eraseBlockSizeFLASH;
-        write.end   = device->endFLASH;
-        preserve.start = write.start;
-        preserve.end = device->startConfig;
+        Device::MemoryRange preserve(device->endFLASH - device->eraseBlockSizeFLASH, device->startConfig);
+        Device::MemoryRange write(device->endFLASH - device->eraseBlockSizeFLASH, device->endFLASH);
 
         elapsed.start();
         deviceWriter->writeConfig = writeConfig;

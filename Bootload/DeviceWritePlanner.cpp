@@ -60,12 +60,8 @@ DeviceWritePlanner::DeviceWritePlanner(Device* newDevice)
 void DeviceWritePlanner::planFlashErase(QLinkedList<Device::MemoryRange>& eraseList,
                                         unsigned int* existingData)
 {
-    Device::MemoryRange block;
-
-    block.start = device->startFLASH;
-    block.end = device->endFLASH;
     eraseList.clear();
-    eraseList.append(block);
+    eraseList.append(Device::MemoryRange(device->startFLASH, device->endFLASH));
     if(device->family == Device::PIC32 && existingData == NULL)
     {
         return;

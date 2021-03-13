@@ -1,11 +1,6 @@
 #include "SingleDeviceDataLoader.h"
 #include "SingleDeviceDataLoaderData.h"
 
-SingleDeviceDataLoader::SingleDeviceDataLoader()
-{
-}
-
-
 DeviceDataLoader::ErrorCode SingleDeviceDataLoader::loadDevice(Device *device, QString partName)
 {
     device->setUnknown();

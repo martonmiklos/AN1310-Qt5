@@ -9,7 +9,7 @@
 class SingleDeviceDataLoader
 {
 public:
-    SingleDeviceDataLoader();
+    SingleDeviceDataLoader() = default;
     DeviceDataLoader::ErrorCode loadDevice(Device* device, int deviceId, Device::Families familyId);
     DeviceDataLoader::ErrorCode loadDevice(Device* device, QString partName);
 

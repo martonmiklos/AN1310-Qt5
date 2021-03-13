@@ -40,7 +40,7 @@ class HexImporter
 public:
     enum ErrorCode { Success = 0, CouldNotOpenFile };
 
-    HexImporter(void);
+    HexImporter() = default;
     ~HexImporter(void);
 
     ErrorCode ImportHexFile(QString fileName, DeviceData* data, Device* device);
